@@ -1,54 +1,53 @@
 {
   "manifest_version": 3,
-  "name": "GestureGuru",
-  "version": "1.0",
-  "description": "GestureGuru converts video speech to sign language in real-time, displaying a 3D avatar that syncs with any video. It makes content accessible for the deaf and hard-of-hearing community.",
-  "icons": {
-    "16": "logo.png",
-    "48": "logo.png",
-    "128": "logo.png"
-  },
+  "name": "SignStream",
+  "version": "0.2.0",
+  "minimum_chrome_version": "116",
+  "description": "Turns speech from the current tab into a 3D sign-language avatar overlay. Runs fully locally: no external APIs.",
   "permissions": [
-    "activeTab",
-    "storage",
-    "tabs",
     "tabCapture",
-    "system.display",
-    "scripting"
+    "offscreen",
+    "activeTab",
+    "scripting",
+    "storage"
   ],
-  "host_permissions": ["<all_urls>"],
-  "action": {
-    "default_popup": "popup.html",
-    "default_icon": {
-      "16": "logo.png",
-      "48": "logo.png",
-      "128": "logo.png"
-    },
-    "default_title": "GestureGuru"
-  },
   "background": {
     "service_worker": "background.js"
   },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"],
-      "run_at": "document_start"
+  "action": {
+    "default_title": "Toggle SignStream overlay",
+    "default_icon": {
+      "16": "icons/16.png",
+      "32": "icons/32.png",
+      "48": "icons/48.png"
     }
-  ],
+  },
+  "icons": {
+    "16": "icons/16.png",
+    "32": "icons/32.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
   "content_security_policy": {
     "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
   },
   "web_accessible_resources": [
     {
       "resources": [
-        "build/ybot.glb",
-        "src/Animations/*.glb",
-        "*.png",
-        "*.js",
-        "*.css"
+        "overlay.html",
+        "overlay.js",
+        "avatar.js",
+        "rig.js",
+        "signer.js",
+        "gestures.json",
+        "lib/three.module.js",
+        "lib/three.core.js",
+        "lib/FBXLoader.js",
+        "model/*"
       ],
-      "matches": ["<all_urls>"]
+      "matches": [
+        "<all_urls>"
+      ]
     }
   ]
 }
